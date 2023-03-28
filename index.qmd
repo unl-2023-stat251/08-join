@@ -29,31 +29,71 @@ Try to focus on using **filtering joins** instead of filter statements where pos
 
 # Setup
 
-This code chunk will read in all of the tables for you.
+## R
 
-```{r, message = F, warning = F}
-if (!"purrr" %in% installed.packages()) install.packages("purrr")
-source("https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/06_sql-murder-setup.R")
+```{r db-setup-r, eval = F}
+# you can do the assignment using the database, if you want, 
+# or you can use the script file to read in each table separately.
+library(RSQLite)
+library(DBI)
+# Your database connection code goes here. Store the connection as con 
+con <- dbConnect(RSQLite::SQLite(), "sql-murder-mystery.db")
+# close the connection when you're done
+dbDisconnect(con)
 ```
 
-This chunk ensures all tables from R are also available in python.
-
-```{python}
-crime_scene_report = r.crime_scene_report
-drivers_license = r.drivers_license
-facebook_event_checkin = r.facebook_event_checkin
-get_fit_now_check_in = r.get_fit_now_check_in
-get_fit_now_member = r.get_fit_now_member
-income = r.income
-interview = r.interview
-person = r.person
+```{r table-setup-r}
+# This loads all of the tables into R data frame objects. 
+# You can also just use the database connection above.
+# You don't need to understand what this code does to run it :)
+if (!"purrr" %in% installed.packages()) {
+  install.packages("purrr")
+}
+# Load all tables from CSV
+table_names <- c("crime_scene_report", 
+                 "drivers_license", 
+                 "facebook_event_checkin",
+                 "get_fit_now_check_in", 
+                 "get_fit_now_member", 
+                 "income", 
+                 "interview",
+                 "person")
+url_base <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/data/sql-murder/"
+# For each table name, read the tables in and store them as the name of the table
+purrr::walk(table_names, function(x) {
+  assign(x, readr::read_csv(paste0(url_base, x, ".csv")), envir = .GlobalEnv)
+})
 ```
 
+
+
+## Python
+
+```{python table-setup-py}
+import pandas as pd
+import sqlite3
+# Read sqlite query results into a pandas DataFrame
+con = sqlite3.connect("sql-murder-mystery.db")
+crime_scene_report = pd.read_sql_query("SELECT * from crime_scene_report", con)
+drivers_license = pd.read_sql_query("SELECT * from drivers_license", con)
+facebook_event_checkin = pd.read_sql_query("SELECT * from facebook_event_checkin", con)
+get_fit_now_check_in = pd.read_sql_query("SELECT * from get_fit_now_check_in", con)
+get_fit_now_member = pd.read_sql_query("SELECT * from get_fit_now_member", con)
+income = pd.read_sql_query("SELECT * from income", con)
+interview = pd.read_sql_query("SELECT * from interview", con)
+person = pd.read_sql_query("SELECT * from person", con)
+# Verify that result of SQL query is stored in the dataframe
+print(crime_scene_report.head())
+con.close()
+```
+
+
+## Getting Started 
 
 To get you started, I'll set you up in the right place. 
 
 
-> A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​. Start by retrieving the corresponding crime scene report from the police department’s database.
+> A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a *murder* that occurred sometime on *Jan.15, 2018* and that it took place in *SQL City*. Start by retrieving the corresponding crime scene report from the police department’s database.
 
 ```{r}
 library(dplyr)
