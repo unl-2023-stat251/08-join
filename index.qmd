@@ -33,7 +33,7 @@ Try to focus on using **filtering joins** instead of filter statements where pos
 
 ```{r db-setup-r, eval = F}
 # you can do the assignment using the database, if you want, 
-# or you can use the script file to read in each table separately.
+# or you can use the code below to read in each table separately.
 library(RSQLite)
 library(DBI)
 # Your database connection code goes here. Store the connection as con 
