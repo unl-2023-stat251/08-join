@@ -42,7 +42,7 @@ con <- dbConnect(RSQLite::SQLite(), "sql-murder-mystery.db")
 dbDisconnect(con)
 ```
 
-```{r table-setup-r}
+```{r table-setup-r, message = F}
 # This loads all of the tables into R data frame objects. 
 # You can also just use the database connection above.
 # You don't need to understand what this code does to run it :)
@@ -69,7 +69,7 @@ purrr::walk(table_names, function(x) {
 
 ## Python
 
-```{python table-setup-py}
+```{python table-setup-py, eval = F}
 import pandas as pd
 import sqlite3
 # Read sqlite query results into a pandas DataFrame
