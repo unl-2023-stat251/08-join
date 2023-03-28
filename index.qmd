@@ -14,21 +14,18 @@ Northwestern University's Knight lab created a SQL murder mystery to help users 
 
 Pick R or python, and solve the murder mystery, showing **all of your work in this document**. 
 
-Your solution must be **reproducible** -- that is, you should use dplyr verbs, table joins, etc. to solve the mystery, rather than just looking through the tables yourselves. 
-Your code must execute properly and stand alone.
-
-
-You should attempt to solve each stage of the murder mystery using **table joins** - I believe there is a solution that only uses 3 filter statements. 
+Your solution must be **reproducible** -- that is, you should use dplyr verbs, table joins, etc. to solve the mystery, rather than just looking through the tables yourselves. Your code must execute properly and stand alone.
 
 **For 5 bonus points, when you're finished in one language, write equivalent code in the other language to solve the problem.**
 
 When you are finished with the assignment: 
 
-1. When you have finished this assignment, commit your changes and push them to github. 
-2. In Canvas, submit the perpetrator's name. 
+1. Save the file as index.qmd and compile it, making sure all of your code runs.
+2. Enter the name of the guilty party on Canvas to submit the homework assignment.
 
-I will pull your github code to check it, so please make sure all steps are documented.
+Note that you should be able to do this entire mystery with only about 3 filter statements (including the one below to get you started). 
 
+Try to focus on using **filtering joins** instead of filter statements where possible in this assignment.
 
 # Setup
 
@@ -55,7 +52,8 @@ person = r.person
 
 To get you started, I'll set you up in the right place. 
 
-> A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a *murder* that occurred sometime on *Jan.15, 2018* and that it took place in *SQL City*. Start by retrieving the corresponding crime scene report from the police department’s database.
+
+> A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​. Start by retrieving the corresponding crime scene report from the police department’s database.
 
 ```{r}
 library(dplyr)
@@ -66,3 +64,7 @@ crime_of_interest <- crime_scene_report %>%
 crime_of_interest$description
 ```
 
+
+# Solution
+
+Document each productive step of your investigation here.
