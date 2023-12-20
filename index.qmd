@@ -20,8 +20,8 @@ Your solution must be **reproducible** -- that is, you should use dplyr verbs, t
 
 When you are finished with the assignment: 
 
-1. Save the file as index.qmd and compile it, making sure all of your code runs.
-2. Enter the name of the guilty party on Canvas to submit the homework assignment.
+1. Save the file as `index.qmd` and compile it, making sure all of your code runs.
+2. If applicable, enter the name of the guilty party on Canvas to submit the homework assignment.
 
 Note that you should be able to do this entire mystery with only about 3 filter statements (including the one below to get you started). 
 
@@ -58,7 +58,7 @@ table_names <- c("crime_scene_report",
                  "income", 
                  "interview",
                  "person")
-url_base <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/data/sql-murder/"
+url_base <- "https://raw.githubusercontent.com/srvanderplas/datasets/main/raw/sql-murder/"
 # For each table name, read the tables in and store them as the name of the table
 purrr::walk(table_names, function(x) {
   assign(x, readr::read_csv(paste0(url_base, x, ".csv")), envir = .GlobalEnv)
